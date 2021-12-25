@@ -1,10 +1,13 @@
 package com.app.adhapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.net.nsd.NsdManager;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 public class MainActivity extends AppCompatActivity {
+    public static void main(String[] args) {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

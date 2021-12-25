@@ -6,13 +6,11 @@ import android.util.Log;
 
 import com.app.adhapp.Exceptions.TAG;
 
-public class discoverServices {
-    private NsdManager.DiscoveryListener discoveryListener;
-
+class discoverServices implements NsdManager.DiscoveryListener{
     public void initializeDiscoveryListener() {
 
         // Instantiate a new DiscoveryListener
-        discoveryListener = new NsdManager.DiscoveryListener() {
+        NsdManager.DiscoveryListener discoveryListener = new NsdManager.DiscoveryListener() {
             private NsdManager.ResolveListener resolveListener;
             private String serviceName;
             private static final String SERVICE_TYPE = "AdHapp";
@@ -70,5 +68,35 @@ public class discoverServices {
                 nsdManager.stopServiceDiscovery(this);
             }
         };
+    }
+
+    @Override
+    public void onStartDiscoveryFailed(String serviceType, int errorCode) {
+
+    }
+
+    @Override
+    public void onStopDiscoveryFailed(String serviceType, int errorCode) {
+
+    }
+
+    @Override
+    public void onDiscoveryStarted(String serviceType) {
+
+    }
+
+    @Override
+    public void onDiscoveryStopped(String serviceType) {
+
+    }
+
+    @Override
+    public void onServiceFound(NsdServiceInfo serviceInfo) {
+
+    }
+
+    @Override
+    public void onServiceLost(NsdServiceInfo serviceInfo) {
+
     }
 }

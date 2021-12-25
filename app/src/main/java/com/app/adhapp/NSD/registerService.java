@@ -20,7 +20,7 @@ public class registerService implements RegistrationListener {
         // The name is subject to change based on conflicts
         // with other services advertised on the same network.
         serviceInfo.setServiceName("AdHapp");
-        serviceInfo.setServiceType("_nsdchat._tcp");
+        serviceInfo.setServiceType("_nsdchat._tcp"); // _<protocol>._<transportlayer>
         serviceInfo.setPort(port);
 
         // This method is asynchronous, so any code that needs to
