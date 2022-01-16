@@ -1,17 +1,12 @@
-package com.app.adhapp.NSD;
+package com.app.testone.NSD;
 
-import android.content.Context;
 import android.net.nsd.NsdManager;
 import android.net.nsd.NsdServiceInfo;
 
-import java.io.IOException;
-import java.net.ServerSocket;
-
-public class registerService implements RegistrationListener {
-    private ServerSocket serverSocket;
-    private int localPort;
+public class registerService {
     private NsdManager nsdManager;
     private NsdManager.RegistrationListener registrationListener;
+    private String serviceName;
 
     public void registerService(int port) {
         // Create the NsdServiceInfo object, and populate it.
@@ -19,22 +14,38 @@ public class registerService implements RegistrationListener {
 
         // The name is subject to change based on conflicts
         // with other services advertised on the same network.
-        serviceInfo.setServiceName("AdHapp");
-        serviceInfo.setServiceType("_nsdchat._tcp"); // _<protocol>._<transportlayer>
+        serviceInfo.setServiceName("1337");
+        serviceInfo.setServiceType("_nsdchat._tcp");
+        serviceInfo.setServiceType("_http._tcp.");
         serviceInfo.setPort(port);
-
-        // This method is asynchronous, so any code that needs to
-        // run after the service has been registered must go here.
-        nsdManager = Context.getSystemService(Context.NSD_SERVICE); // TODO: fix this getSystemService()
-        nsdManager.registerService(serviceInfo, NsdManager.PROTOCOL_DNS_SD, registrationListener);
     }
 
-    public void initializeServerSocket() throws IOException {
-        // Initialize a server socket on the next available port.
-        serverSocket = new ServerSocket(0);
+    public void initializeRegistrationListener() {
+        registrationListener = new NsdManager.RegistrationListener() {
 
-        // Store the chosen port.
-        localPort = serverSocket.getLocalPort();
-    // ...
+            @Override
+            public void onServiceRegistered(NsdServiceInfo NsdServiceInfo) {
+                // Save the service name. Android may have changed it in order to
+                // resolve a conflict, so update the name you initially requested
+                // with the name Android actually used.
+                serviceName = NsdServiceInfo.getServiceName();
+            }
+
+            @Override
+            public void onRegistrationFailed(NsdServiceInfo serviceInfo, int errorCode) {
+                // Registration failed! Put debugging code here to determine why.
+            }
+
+            @Override
+            public void onServiceUnregistered(NsdServiceInfo arg0) {
+                // Service has been unregistered. This only happens when you call
+                // NsdManager.unregisterService() and pass in this listener.
+            }
+
+            @Override
+            public void onUnregistrationFailed(NsdServiceInfo serviceInfo, int errorCode) {
+                // Unregistration failed. Put debugging code here to determine why.
+            }
+        };
     }
 }
