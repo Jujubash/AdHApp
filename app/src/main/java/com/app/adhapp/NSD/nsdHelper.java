@@ -1,13 +1,15 @@
-package com.app.testone.NSD;
+package com.app.adhapp.NSD;
 
 import android.net.nsd.NsdManager;
 import android.net.nsd.NsdServiceInfo;
 
-public class registerService {
+public class nsdHelper {
     private NsdManager nsdManager;
     private NsdManager.RegistrationListener registrationListener;
     private String serviceName;
 
+
+    //----------------------- Teil 1/4: Register your service on the network -----------------------
     public void registerService(int port) {
         // Create the NsdServiceInfo object, and populate it.
         NsdServiceInfo serviceInfo = new NsdServiceInfo();
