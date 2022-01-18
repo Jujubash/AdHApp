@@ -3,6 +3,8 @@ package com.app.adhapp;
 import android.content.Context;
 import android.net.nsd.NsdManager;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,19 +15,20 @@ public class MainActivity extends AppCompatActivity {
     private NsdManager nsdManager;
     private NsdManager.RegistrationListener registrationListener;
     private NsdManager.DiscoveryListener discoveryListener;
+    nsdHelper discoverService = new nsdHelper().discoverServices();
+    private static final String TAG = "AdHApp Activity ";
 
     public static void main(String[] args) {
-        System.out.println("This is main!");
+        System.out.println("This is the main!");
     }
 
     //---------------------------------- Application's Activity ----------------------------------//
-    //------------------------ Teil 2/4: Discover services on the network ------------------------//
-    nsdHelper discoverService = new nsdHelper().discoverServices();
+    RelativeLayout layout;     // TODO: Teil 2/4: Discover services on the network ??? nsdHelper.discoverServices()
 
-    //------------------ Teil 4/4: Unregister your service on application close ------------------//
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate() mode ");
         setContentView(R.layout.activity_main);
 
         nsdHelper NsdServiceInfo = new nsdHelper();
@@ -33,36 +36,51 @@ public class MainActivity extends AppCompatActivity {
         nsdManager = Context.getSystemService(Context.NSD_SERVICE); // TODO: import getSystemService shouldn't be private
 
         System.out.println(NsdServiceInfo); // Just do it
+    }
 
-        @Override
-        protected void onPause() {
-            if (nsdHelper != null) {
-                nsdHelper.tearDown();
-            }
-            super.onPause();
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart() mode ");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume() mode ");
+        if (nsdHelper != null) {
+            nsdHelper.registerService(connection.getLocalPort());
+            nsdHelper.discoverServices();
         }
+    }
 
-        @Override
-        protected void onResume() {
-            super.onResume();
-            if (nsdHelper != null) {
-                nsdHelper.registerService(connection.getLocalPort());
-                nsdHelper.discoverServices();
-            }
-        }
-
-        @Override
-        protected void onDestroy() {
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause() mode ");
+        if (nsdHelper != null) {
             nsdHelper.tearDown();
-            connection.tearDown();
-            super.onDestroy();
         }
+    }
 
-        // NsdHelper's tearDown method
-        public void tearDown() {
-            nsdManager.unregisterService(registrationListener);
-            nsdManager.stopServiceDiscovery(discoveryListener);
-        }
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d(TAG, "onRestart() mode ");
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy() mode ");
+        nsdHelper.tearDown();
+        connection.tearDown();
+    }
+
+    // NsdHelper's tearDown method
+    public void tearDown() {
+        Log.d(TAG, "tearDown() mode ");
+        nsdManager.unregisterService(registrationListener);
+        nsdManager.stopServiceDiscovery(discoveryListener);
     }
 }

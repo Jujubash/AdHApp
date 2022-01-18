@@ -1,7 +1,5 @@
 package com.app.adhapp.NSD;
 
-import static android.content.ContentValues.TAG;
-
 import android.content.Context;
 import android.net.nsd.NsdManager;
 import android.net.nsd.NsdServiceInfo;
@@ -14,14 +12,13 @@ import java.net.ServerSocket;
 public class nsdHelper {
     private static final String SERVICE_TYPE = "unbekannt"; // TODO: muss geändert werden und korrekt sein
     private static NsdManager nsdManager;
+    private static NsdManager.DiscoveryListener discServ, discoveryListener;
     private static NsdManager.RegistrationListener registrationListener;
-    private static NsdManager.DiscoveryListener discoveryListener;
-    private static NsdManager.DiscoveryListener discServ;
-    private String serviceName;
+    private NsdManager.ResolveListener resolveListener;
+    private NsdServiceInfo mService;
+    private String serviceName, TAG;
     private int localPort;
     private ServerSocket serverSocket;
-    private NsdServiceInfo mService;
-    private NsdManager.ResolveListener resolveListener;
 
     //---------------------- Teil 1/4: Register your service on the network ----------------------//
     public static void registerService(int port) {
