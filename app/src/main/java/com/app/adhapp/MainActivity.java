@@ -9,20 +9,16 @@ import android.widget.RelativeLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.app.adhapp.NSD.connection;
-import com.app.adhapp.NSD.nsdHelper;
-
-import net.sharksystem.android.bluetooth.sdp.BluetoothSDPEngine;
+import com.app.adhapp.NSD.BluetoothSDPEngine;
 
 public class MainActivity extends AppCompatActivity {
     private NsdManager nsdManager;
     private NsdManager.RegistrationListener registrationListener;
     private NsdManager.DiscoveryListener discoveryListener;
-    nsdHelper discoverService = new nsdHelper().discoverServices();
+    private BluetoothSDPEngine discoverService;
     private static final String TAG = "AdHApp Activity ";
 
-    public static void main(String[] args) {
-        BluetoothSDPEngine blueFacade = new BluetoothSDPEngine();
-    }
+    private BluetoothSDPEngine bluetoothSDPEngine;
 
     //---------------------------------- Application's Activity ----------------------------------//
     RelativeLayout layout;     // TODO: Teil 2/4: Discover services on the network ??? nsdHelper.discoverServices()
@@ -33,11 +29,12 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate() mode ");
         setContentView(R.layout.activity_main);
 
-        nsdHelper NsdServiceInfo = new nsdHelper();
-        nsdHelper nsdHelper = new nsdHelper();
-        nsdManager = Context.getSystemService(Context.NSD_SERVICE); // TODO: import getSystemService shouldn't be private
-
-        System.out.println(NsdServiceInfo); // Just do it
+        //NsdHelper NsdServiceInfo = new NsdHelper();
+        this.bluetoothSDPEngine = new BluetoothSDPEngine(this, null);
+        nsdManager = (NsdManager) this.getSystemService(Context.NSD_SERVICE);
+        this.discoverService = bluetoothSDPEngine.discoverServices();
+        //System.out.println(NsdServiceInfo); // Just do it
+        // TODO: call constructor from BluetoothSDPEngine();
     }
 
     @Override
@@ -50,9 +47,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         Log.d(TAG, "onResume() mode ");
-        if (nsdHelper != null) {
-            nsdHelper.registerService(connection.getLocalPort());
-            nsdHelper.discoverServices();
+        if (bluetoothSDPEngine != null) {
+            this.bluetoothSDPEngine.onResume();
         }
     }
 
@@ -60,8 +56,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         Log.d(TAG, "onPause() mode ");
-        if (nsdHelper != null) {
-            nsdHelper.tearDown();
+        if (bluetoothSDPEngine != null) {
+            this.bluetoothSDPEngine.onPause();
         }
     }
 
@@ -75,14 +71,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "onDestroy() mode ");
-        nsdHelper.tearDown();
-        connection.tearDown();
+        this.bluetoothSDPEngine.onDestroy();
     }
 
     // NsdHelper's tearDown method
     public void tearDown() {
         Log.d(TAG, "tearDown() mode ");
-        nsdManager.unregisterService(registrationListener);
-        nsdManager.stopServiceDiscovery(discoveryListener);
+        this.bluetoothSDPEngine.tearDown();
     }
 }

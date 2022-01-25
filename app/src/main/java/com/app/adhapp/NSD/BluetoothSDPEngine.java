@@ -5,23 +5,37 @@ import android.net.nsd.NsdManager;
 import android.net.nsd.NsdServiceInfo;
 import android.util.Log;
 
+import net.sharksystem.asap.ASAPConnectionHandler;
+
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 
-public class nsdHelper {
+public class BluetoothSDPEngine {
     private static final String SERVICE_TYPE = "unbekannt"; // TODO: muss geändert werden und korrekt sein
-    private static NsdManager nsdManager;
-    private static NsdManager.DiscoveryListener discServ, discoveryListener;
-    private static NsdManager.RegistrationListener registrationListener;
+    private static NsdManager.DiscoveryListener discoveryListener;
+    private NsdManager nsdManager;
+    private NsdManager.DiscoveryListener discServ;
+    private NsdManager.RegistrationListener registrationListener;
+    private final Context ctx;
+    private final ASAPConnectionHandler asapConnectionHandler;
     private NsdManager.ResolveListener resolveListener;
     private NsdServiceInfo mService;
     private String serviceName, TAG;
     private int localPort;
     private ServerSocket serverSocket;
+    private BluetoothSDPEngine discoverService;
+    private ASAPConnectionHandler asapConnectionHandler1;
+
+    public BluetoothSDPEngine(BluetoothSDPEngine bluetoothSDPEngine, Object asapConnectionHandler, Context ctx, ASAPConnectionHandler asapConnectionHandler1) {
+        this.ctx = ctx;
+        this.asapConnectionHandler = asapConnectionHandler1;
+    }
+
+    // TODO: create constructor for BluetoothSDPEngine();
 
     //---------------------- Teil 1/4: Register your service on the network ----------------------//
-    public static void registerService(int port) {
+    public void registerService(int port) {
         //--------------------------- Teil 1/2: von registerService(); ---------------------------//
         // Create the NsdServiceInfo object, and populate it.
         NsdServiceInfo serviceInfo = new NsdServiceInfo();
@@ -38,9 +52,14 @@ public class nsdHelper {
         serviceInfo.setServiceType("_http._tcp.");
         serviceInfo.setPort(port);
 
-        nsdManager = Context.getSystemService(Context.NSD_SERVICE);
+        nsdManager = (NsdManager) this.ctx.getSystemService(Context.NSD_SERVICE);
         nsdManager.registerService(
                 serviceInfo, NsdManager.PROTOCOL_DNS_SD, registrationListener);
+    }
+
+    public BluetoothSDPEngine(Context ctx, ASAPConnectionHandler asapConnectionHandler) {
+        this.ctx = ctx;
+        this.asapConnectionHandler = asapConnectionHandler;
     }
 
     public void initializeServerSocket() throws IOException {
@@ -52,7 +71,7 @@ public class nsdHelper {
     }
 
 
-    public void initializeRegistrationListener() {
+    public void initializeRegistrationListener() { // TODO: onStart();
         registrationListener = new NsdManager.RegistrationListener() {
 
             @Override
@@ -82,7 +101,7 @@ public class nsdHelper {
     }
 
     //------------------------ Teil 2/4: Discover services on the network ------------------------//
-    public static nsdHelper discoverServices() {
+    public BluetoothSDPEngine discoverServices() {
         nsdManager.discoverServices(
                 SERVICE_TYPE, NsdManager.PROTOCOL_DNS_SD, discoveryListener);
         return null; // TODO: return results
@@ -168,7 +187,31 @@ public class nsdHelper {
     }
 
     //------------------ Teil 4/4: Unregister your service on application close ------------------//
-    public static void tearDown() {
 
+    public void onCreate() {
+        new BluetoothSDPEngine(this, null, ctx, asapConnectionHandler1);
+        discoverService = this.discoverServices();
+
+        // new nsdManager.getSystemService(Context.NSD_SERVICE);
+        // nsdManager = (NsdManager) this.getSystemService(Context.NSD_SERVICE);
+    }
+
+    public void onPause() {
+        this.tearDown();
+    }
+
+    public void onResume() {
+        this.registerService(connection.getLocalPort());
+        this.discoverServices();
+    }
+
+    public void onDestroy() {
+        this.tearDown();
+        connection.tearDown();
+    }
+
+    public void tearDown() {
+        nsdManager.unregisterService(registrationListener);
+        nsdManager.stopServiceDiscovery(discoveryListener);
     }
 }
