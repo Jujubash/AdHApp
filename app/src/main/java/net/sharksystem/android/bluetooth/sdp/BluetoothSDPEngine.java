@@ -1,4 +1,6 @@
-package com.app.adhapp;
+package net.sharksystem.android.bluetooth.sdp;
+
+import android.content.Context;
 
 import net.sharksystem.asap.ASAPConnectionHandler;
 import net.sharksystem.asap.ASAPException;
@@ -11,6 +13,10 @@ import java.io.OutputStream;
 import java.util.Set;
 
 public class BluetoothSDPEngine implements ASAPConnectionHandler {
+    static void getBluetoothSDPEngine(Context ctx, ASAPConnectionHandler asapConnectionHandler) {
+        // TODO: do something
+    }
+
     @Override
     public ASAPConnection handleConnection(InputStream is, OutputStream os, boolean encrypt, boolean sign, Set<CharSequence> appsWhiteList, Set<CharSequence> appsBlackList) throws IOException, ASAPException {
         return null; // TODO: return expected value

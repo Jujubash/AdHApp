@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.app.adhapp.NSD.connection;
 import com.app.adhapp.NSD.nsdHelper;
 
+import net.sharksystem.android.bluetooth.sdp.BluetoothSDPEngine;
+
 public class MainActivity extends AppCompatActivity {
     private NsdManager nsdManager;
     private NsdManager.RegistrationListener registrationListener;
@@ -19,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "AdHApp Activity ";
 
     public static void main(String[] args) {
-        System.out.println("This is the main!");
+        BluetoothSDPEngine blueFacade = new BluetoothSDPEngine();
     }
 
     //---------------------------------- Application's Activity ----------------------------------//
