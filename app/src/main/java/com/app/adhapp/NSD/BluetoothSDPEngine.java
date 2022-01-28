@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 
-public class BluetoothSDPEngine {
+public class BluetoothSDPEngine implements SDPEngine{
     private static final String SERVICE_TYPE = "unbekannt"; // TODO: muss geändert werden und korrekt sein
     private static NsdManager.DiscoveryListener discoveryListener;
     private NsdManager nsdManager;
@@ -213,5 +213,27 @@ public class BluetoothSDPEngine {
     public void tearDown() {
         nsdManager.unregisterService(registrationListener);
         nsdManager.stopServiceDiscovery(discoveryListener);
+    }
+
+    // TODO: richtig anpassen --------------------------------------------------------------------//
+
+    @Override
+    public void offer(CharSequence[] formats) {
+
+    }
+
+    @Override
+    public void discover(CharSequence[] formats) {
+
+    }
+
+    @Override
+    public void stopOffering() {
+
+    }
+
+    @Override
+    public void stopDiscovery() {
+
     }
 }
