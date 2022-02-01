@@ -14,7 +14,8 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 
 public class BluetoothSDPEngine implements SDPEngine{
-    private static final String SERVICE_TYPE = "BluetoothSDPEngine";
+    private static final String SERVICE_TYPE = "_http._tcp.";
+    private static final String REGISTRATION_TYPE = "_nsdchat._tcp";
     private static final String TAG = "NSDHelper";
     private static NsdManager.DiscoveryListener discoveryListener;
     private NsdManager nsdManager;
@@ -24,7 +25,7 @@ public class BluetoothSDPEngine implements SDPEngine{
     private final ASAPConnectionHandler asapConnectionHandler;
     private NsdManager.ResolveListener resolveListener;
     private NsdServiceInfo mService;
-    private String serviceName;
+    private String serviceName = "BluetoothSDPENgine"; // TODO: add into constructor ???
     private int localPort;
     private ServerSocket serverSocket;
     private BluetoothSDPEngine discoverService;
@@ -38,22 +39,18 @@ public class BluetoothSDPEngine implements SDPEngine{
 
     // TODO: create constructor for BluetoothSDPEngine();
 
-    //---------------------- Teil 1/4: Register your service on the network ----------------------//
     public void registerService(int port) {
         //--------------------------- Teil 1/2: von registerService(); ---------------------------//
-        // Create the NsdServiceInfo object, and populate it.
         NsdServiceInfo serviceInfo = new NsdServiceInfo();
 
-        // The name is subject to change based on conflicts
-        // with other services advertised on the same network.
-        serviceInfo.setServiceName("1337");
-        serviceInfo.setServiceType("_nsdchat._tcp");
+        serviceInfo.setServiceName(serviceName);
+        serviceInfo.setServiceType(REGISTRATION_TYPE);
         serviceInfo.setPort(port);
 
         //--------------------------- Teil 2/2: von registerService(); ---------------------------//
         serviceInfo = new NsdServiceInfo();
-        serviceInfo.setServiceName("NsdChat");
-        serviceInfo.setServiceType("_http._tcp.");
+        serviceInfo.setServiceName(serviceName);
+        serviceInfo.setServiceType(SERVICE_TYPE);
         serviceInfo.setPort(port);
 
         nsdManager = (NsdManager) this.ctx.getSystemService(Context.NSD_SERVICE);
@@ -120,7 +117,6 @@ public class BluetoothSDPEngine implements SDPEngine{
         };
     }
 
-    //------------------------ Teil 2/4: Discover services on the network ------------------------//
     public BluetoothSDPEngine discoverServices() {
         nsdManager.discoverServices(
                 SERVICE_TYPE, NsdManager.PROTOCOL_DNS_SD, discoveryListener);
@@ -181,8 +177,7 @@ public class BluetoothSDPEngine implements SDPEngine{
         };
     }
 
-    //----------------------- Teil 3/4: Connect to services on the network -----------------------//
-    public void initializeResolveListener() {
+        public void initializeResolveListener() {
         resolveListener = new NsdManager.ResolveListener() {
 
             @Override
@@ -205,8 +200,6 @@ public class BluetoothSDPEngine implements SDPEngine{
             }
         };
     }
-
-    //------------------ Teil 4/4: Unregister your service on application close ------------------//
 
     public void onCreate() {
         new BluetoothSDPEngine(this, null, ctx, asapConnectionHandler1);
