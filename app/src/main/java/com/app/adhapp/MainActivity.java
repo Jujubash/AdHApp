@@ -28,13 +28,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate() mode ");
         setContentView(R.layout.activity_main);
-
-        //NsdHelper NsdServiceInfo = new NsdHelper();
-        this.bluetoothSDPEngine = new BluetoothSDPEngine(this, null);
+        this.bluetoothSDPEngine = new BluetoothSDPEngine(this, null); // TODO: call constructor from BluetoothSDPEngine();
+        this.bluetoothSDPEngine.onCreate();
         nsdManager = (NsdManager) this.getSystemService(Context.NSD_SERVICE);
         this.discoverService = bluetoothSDPEngine.discoverServices();
-        //System.out.println(NsdServiceInfo); // Just do it
-        // TODO: call constructor from BluetoothSDPEngine();
     }
 
     @Override

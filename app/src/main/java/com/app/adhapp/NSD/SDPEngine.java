@@ -9,7 +9,7 @@ public interface SDPEngine {
      Nach dem Aufruf aber, bietet sich die Komponente anderen als Service an
      und erlaubt einen Verbindungsaufbau
      */
-    void offer(CharSequence[] formats);
+    void offer(CharSequence[] formats); // TODO: komplett löschen ???
 
     /** Die Komponenten sucht nun nach passenden Services.
      * Sie baut eine Verbindung auf.
@@ -17,8 +17,11 @@ public interface SDPEngine {
      asapConnectionHandler.handleConnection(inputStream, outputStream) auf.
      In einer kleinere Demoimplementierung zeigen Sie, dass das funktioniert.
      */
-    void discover(CharSequence[] formats);
+    void discover(CharSequence[] formats); // Bevor es verbunden wird: Beschreibung vom Service:
+                                           // wenn gleiche Formate unterstützen dann auf Discovery
 
-    void stopOffering(); // offering stoppen // TODO: offer >> discovery
-    void stopDiscovery(); // discovery stoppen // TODO
+    void stopDiscovery(CharSequence[] formats); // discovery stoppen // TODO: implementieren
+
+    void getChosenServiceInfo(CharSequence[] formats); // TODO: Button, um Beschreibung vom Service String zu sehen
+                                           // TODO: ??? es könnte dann auch später ein QR-Code Sharing implementiert werden
 }
