@@ -4,6 +4,8 @@ import android.content.Context;
 import android.net.nsd.NsdManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
 
     private BluetoothSDPEngine bluetoothSDPEngine;
 
+    private Button button_start, button_searcher;
+
     //---------------------------------- Application's Activity ----------------------------------//
     RelativeLayout layout;     // TODO: Teil 2/4: Discover services on the network ??? nsdHelper.discoverServices()
 
@@ -32,6 +36,23 @@ public class MainActivity extends AppCompatActivity {
         this.bluetoothSDPEngine.onCreate();
         nsdManager = (NsdManager) this.getSystemService(Context.NSD_SERVICE);
         this.discoverService = bluetoothSDPEngine.discoverServices();
+
+        // Buttons on main menu:
+        button_start = (Button) findViewById(R.id.button);
+        button_start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SessionStarter();
+            }
+        });
+
+        button_searcher = (Button) findViewById(R.id.button);
+        button_searcher.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SessionSearcher();
+            }
+        });
     }
 
     @Override

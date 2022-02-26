@@ -10,7 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AdHapp">
         <activity
-            android:name=".Session_Starter"
+            android:name=".SessionSearcher"
+            android:exported="false" />
+        <activity
+            android:name=".SessionStarter"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
