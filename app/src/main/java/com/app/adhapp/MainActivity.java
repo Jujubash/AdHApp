@@ -1,6 +1,7 @@
 package com.app.adhapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.nsd.NsdManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,21 +39,31 @@ public class MainActivity extends AppCompatActivity {
         this.discoverService = bluetoothSDPEngine.discoverServices();
 
         // Buttons on main menu:
-        button_start = (Button) findViewById(R.id.button);
+        button_start = (Button) findViewById(R.id.button_start);
         button_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SessionStarter();
+                openSessionStarter();
             }
         });
 
-        button_searcher = (Button) findViewById(R.id.button);
+        button_searcher = (Button) findViewById(R.id.button_search);
         button_searcher.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SessionSearcher();
+                openSessionSearcher();
             }
         });
+    }
+
+    public void openSessionStarter() {
+        Intent intent_start = new Intent(this, SessionStarter.class);
+        startActivity(intent_start);
+    }
+
+    public void openSessionSearcher() {
+        Intent intent_search = new Intent(this, SessionSearcher.class);
+        startActivity(intent_search);
     }
 
     @Override
