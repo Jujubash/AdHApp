@@ -22,20 +22,25 @@
 
     <Button
         android:id="@+id/button_start"
+        android:text="start session"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="start session"
-        tools:layout_editor_absoluteX="130dp"
-        tools:layout_editor_absoluteY="285dp" />
+        android:layout_marginStart="6dp"
+        android:layout_marginBottom="71dp"
+        app:layout_constraintBottom_toTopOf="@+id/button_search"
+        app:layout_constraintStart_toStartOf="@+id/button_search"
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/button_search"
+        android:text="search session"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="search session"
-        tools:layout_editor_absoluteX="124dp"
-        tools:layout_editor_absoluteY="404dp" />
+        android:layout_marginBottom="279dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
