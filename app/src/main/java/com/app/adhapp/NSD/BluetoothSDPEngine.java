@@ -222,10 +222,12 @@ public class BluetoothSDPEngine implements SDPEngine{
 
     }
 
+    /*
     @Override
     public void discover(CharSequence[] formats) {
         nsdManager.discoverServices( this, null);
     }
+     */ // Change this mess
 
     @Override
     public void stopDiscovery(CharSequence[] formats) {
