@@ -19,9 +19,8 @@ public class MainActivity extends AppCompatActivity {
     private NsdManager.RegistrationListener registrationListener;
     private NsdManager.DiscoveryListener discoveryListener;
     private BluetoothSDPEngine discoverService;
-    private static final String TAG = "AdHApp Activity ";
-
     private BluetoothSDPEngine bluetoothSDPEngine;
+    private static final String TAG = "AdHApp Activity ";
 
     private Button button_start, button_searcher;
 
@@ -36,7 +35,8 @@ public class MainActivity extends AppCompatActivity {
         this.bluetoothSDPEngine = new BluetoothSDPEngine(this, null); // TODO: call constructor from BluetoothSDPEngine();
         this.bluetoothSDPEngine.onCreate();
         nsdManager = (NsdManager) this.getSystemService(Context.NSD_SERVICE);
-        this.discoverService = bluetoothSDPEngine.discoverServices();
+        this.discoverService = new BluetoothSDPEngine(this, null);
+        this.discoverService.onCreate();
 
         // Buttons on main menu:
         button_start = (Button) findViewById(R.id.button_start);
