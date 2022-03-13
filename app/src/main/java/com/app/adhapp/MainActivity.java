@@ -31,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate() mode ");
         setContentView(R.layout.activity_main);
+        Log.d(TAG, "onCreate() mode ");
         this.bluetoothSDPEngine = new BluetoothSDPEngine(this, null); // TODO: call constructor from BluetoothSDPEngine();
         this.bluetoothSDPEngine.onCreate();
         nsdManager = (NsdManager) this.getSystemService(Context.NSD_SERVICE);
