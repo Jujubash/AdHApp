@@ -30,7 +30,6 @@ public class BluetoothSDPEngine implements SDPEngine{
     private BluetoothSDPEngine discoverService;
     private ASAPConnectionHandler asapConnectionHandler1;
     private CharSequence[] formats;
-    public Button activateDiscovery, searchDiscovery, stopDiscovery; // TODO: fehlen Buttons ???
 
     public BluetoothSDPEngine(BluetoothSDPEngine bluetoothSDPEngine, Object asapConnectionHandler, Context ctx, ASAPConnectionHandler asapConnectionHandler1) {
         this.ctx = ctx;
@@ -203,13 +202,13 @@ public class BluetoothSDPEngine implements SDPEngine{
     }
 
     public void onResume() {
-        this.registerService(connection.getLocalPort());
+        this.registerService(Connection.getLocalPort());
         this.discoverServices();
     }
 
     public void onDestroy() {
         this.tearDown();
-        connection.tearDown();
+        Connection.tearDown();
     }
 
     public void tearDown() {
@@ -227,7 +226,7 @@ public class BluetoothSDPEngine implements SDPEngine{
     public void discover(CharSequence[] formats) {
         nsdManager.discoverServices( this, null);
     }
-     */ // Change this mess
+     */ // TODO: Change this mess
 
     @Override
     public void stopDiscovery(CharSequence[] formats) {
@@ -242,6 +241,6 @@ public class BluetoothSDPEngine implements SDPEngine{
 
     @Override
     public void getChosenServiceInfo(CharSequence[] formats) {
-        // return serviceName; // TODO: return Service Beschreibung
+        // return serviceName; // TODO: return Service (Beschreibung)
     }
 }

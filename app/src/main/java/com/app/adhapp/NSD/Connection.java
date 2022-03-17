@@ -1,6 +1,6 @@
 package com.app.adhapp.NSD;
 
-public class connection {
+public class Connection {
     private static int localPort;
 
     public void setConnection(int localPort) {

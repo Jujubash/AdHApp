@@ -7,11 +7,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.app.adhapp.NSD.connection;
 import com.app.adhapp.NSD.BluetoothSDPEngine;
 
 public class MainActivity extends AppCompatActivity {
@@ -22,7 +23,9 @@ public class MainActivity extends AppCompatActivity {
     private BluetoothSDPEngine bluetoothSDPEngine;
     private static final String TAG = "AdHApp Activity ";
 
-    private Button button_start, button_searcher;
+    private Button button_start, button_search, button_search_format, button_start_format;
+    private EditText edit_format;       // TODO: Search and Start Activity Inputs
+    private TextView textview_format;   // TODO: Search and Start Activity Inputs
 
     //---------------------------------- Application's Activity ----------------------------------//
     RelativeLayout layout;     // TODO: Teil 2/4: Discover services on the network ??? nsdHelper.discoverServices()
@@ -38,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         this.discoverService = new BluetoothSDPEngine(this, null);
         this.discoverService.onCreate();
 
-        // Buttons on main menu:
+        //-------------------------------- Buttons All Activities --------------------------------//
         button_start = (Button) findViewById(R.id.button_start);
         button_start.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,10 +50,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        button_searcher = (Button) findViewById(R.id.button_search);
-        button_searcher.setOnClickListener(new View.OnClickListener() {
+        button_search = (Button) findViewById(R.id.button_search);
+        button_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                edit_format = (EditText)findViewById(R.id.editText1);
+                textview_format = (TextView)findViewById(R.id.textView1);
+                textview_format.setText("Welcome "+ edit_format.getText().toString()+"!");
                 openSessionSearcher();
             }
         });

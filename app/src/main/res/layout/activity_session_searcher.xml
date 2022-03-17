@@ -7,12 +7,38 @@
     tools:context=".SessionStarter">
 
     <TextView
-        android:text="Session Searcher"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Session Searcher"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.316" />
+
+    <EditText
+        android:id="@+id/inputFormat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="#F3F3F3"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="please enter format"
+        tools:layout_editor_absoluteX="100dp"
+        tools:layout_editor_absoluteY="329dp">
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/button_search_format"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#F3F3F3"
+        android:text="Search session"
+        android:textColor="#FFFFFF"
+        tools:layout_editor_absoluteX="124dp"
+        tools:layout_editor_absoluteY="409dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
