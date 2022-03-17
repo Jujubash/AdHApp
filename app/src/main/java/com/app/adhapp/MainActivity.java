@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText edit_format;       // TODO: Search and Start Activity Inputs
     private TextView textview_format;   // TODO: Search and Start Activity Inputs
 
-    //---------------------------------- Application's Activity ----------------------------------//
+    //---------------------------------- APPLICATION'S ACTIVITY ----------------------------------//
     RelativeLayout layout;     // TODO: Teil 2/4: Discover services on the network ??? nsdHelper.discoverServices()
 
     @Override
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         this.discoverService = new BluetoothSDPEngine(this, null);
         this.discoverService.onCreate();
 
-        //-------------------------------- Buttons All Activities --------------------------------//
+        //-------------------------------- BUTTONS ALL ACTIVITIES --------------------------------//
         button_start = (Button) findViewById(R.id.button_start);
         button_start.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,14 +54,15 @@ public class MainActivity extends AppCompatActivity {
         button_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                edit_format = (EditText)findViewById(R.id.editText1);
-                textview_format = (TextView)findViewById(R.id.textView1);
-                textview_format.setText("Welcome "+ edit_format.getText().toString()+"!");
                 openSessionSearcher();
+                edit_format = (EditText)findViewById(R.id.edit_format);
+                textview_format = (TextView)findViewById(R.id.textview_format);
+                textview_format.setText("Session chosen: "+ edit_format.getText().toString());
             }
         });
     }
 
+    //------------------------------------ START LIFE CYCLE --------------------------------------//
     public void openSessionStarter() {
         Intent intent_start = new Intent(this, SessionStarter.class);
         startActivity(intent_start);
@@ -109,9 +110,8 @@ public class MainActivity extends AppCompatActivity {
         this.bluetoothSDPEngine.onDestroy();
     }
 
-    // NsdHelper's tearDown method
     public void tearDown() {
         Log.d(TAG, "tearDown() mode ");
-        this.bluetoothSDPEngine.tearDown();
+        this.bluetoothSDPEngine.tearDown();     // NsdHelper's tearDown method
     }
 }

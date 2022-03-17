@@ -7,6 +7,7 @@
     tools:context=".SessionStarter">
 
     <TextView
+        android:id="@+id/textview_activity_searcher"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Session Searcher"
@@ -17,7 +18,7 @@
         app:layout_constraintVertical_bias="0.316" />
 
     <EditText
-        android:id="@+id/inputFormat"
+        android:id="@+id/edit_format"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
