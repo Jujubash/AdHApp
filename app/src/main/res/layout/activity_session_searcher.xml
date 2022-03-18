@@ -17,6 +17,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.316" />
 
+    <TextView
+        android:id="@+id/textview_format"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View Input Format"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#000"
+        tools:layout_editor_absoluteX="132dp"
+        tools:layout_editor_absoluteY="459dp" />
+
     <EditText
         android:id="@+id/edit_format"
         android:layout_width="wrap_content"
@@ -27,8 +37,7 @@
         android:inputType="textPersonName"
         android:text="please enter format"
         tools:layout_editor_absoluteX="100dp"
-        tools:layout_editor_absoluteY="329dp">
-
+        tools:layout_editor_absoluteY="262dp">
         <requestFocus />
     </EditText>
 
@@ -39,7 +48,7 @@
         android:background="#F3F3F3"
         android:text="Search session"
         android:textColor="#FFFFFF"
-        tools:layout_editor_absoluteX="124dp"
-        tools:layout_editor_absoluteY="409dp" />
+        tools:layout_editor_absoluteX="130dp"
+        tools:layout_editor_absoluteY="306dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

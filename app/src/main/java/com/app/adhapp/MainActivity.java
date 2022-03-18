@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private NsdManager.DiscoveryListener discoveryListener;
     private BluetoothSDPEngine discoverService;
     private BluetoothSDPEngine bluetoothSDPEngine;
+    private String format_string; // TODO: Das wird zu das void offer(CharSequence[] formats); in der Interface SDPEngine.java
     private static final String TAG = "AdHApp Activity ";
 
     private Button button_start, button_search, button_search_format, button_start_format;
@@ -57,7 +58,8 @@ public class MainActivity extends AppCompatActivity {
                 openSessionSearcher();
                 edit_format = (EditText)findViewById(R.id.edit_format);
                 textview_format = (TextView)findViewById(R.id.textview_format);
-                textview_format.setText("Session chosen: "+ edit_format.getText().toString());
+                format_string = edit_format.getText().toString();
+                textview_format.setText("Session chosen: "+ format_string);
             }
         });
     }
