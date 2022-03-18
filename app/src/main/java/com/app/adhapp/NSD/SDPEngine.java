@@ -26,5 +26,4 @@ public interface SDPEngine {
     void stopDiscovery(CharSequence[] formats); // discovery stoppen // TODO: implementieren
 
     void getChosenServiceInfo(CharSequence[] formats); // TODO: Button, um Beschreibung vom Service String zu sehen
-                                           // TODO: ??? es könnte dann auch später ein QR-Code Sharing implementiert werden
 }

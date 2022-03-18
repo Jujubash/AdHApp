@@ -1,21 +1,21 @@
 package com.app.adhapp;
 
-import android.content.Context;
-import android.content.Intent;
-import android.net.nsd.NsdManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.content.Intent;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
+import android.content.Context;
 import android.widget.TextView;
-
+import android.net.nsd.NsdManager;
+import com.app.adhapp.NSD.SDPEngine;
+import android.widget.RelativeLayout;
+import com.app.adhapp.NSD.BluetoothSDPEngine;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.app.adhapp.NSD.BluetoothSDPEngine;
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SDPEngine {
+    private SDPEngine sdpEngine;
     private NsdManager nsdManager;
     private NsdManager.RegistrationListener registrationListener;
     private NsdManager.DiscoveryListener discoveryListener;
@@ -115,5 +115,22 @@ public class MainActivity extends AppCompatActivity {
     public void tearDown() {
         Log.d(TAG, "tearDown() mode ");
         this.bluetoothSDPEngine.tearDown();     // NsdHelper's tearDown method
+    }
+
+    // TODO: implement Interface methods
+
+    @Override
+    public void offer(CharSequence[] formats) {
+
+    }
+
+    @Override
+    public void stopDiscovery(CharSequence[] formats) {
+
+    }
+
+    @Override
+    public void getChosenServiceInfo(CharSequence[] formats) {
+
     }
 }

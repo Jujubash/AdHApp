@@ -29,7 +29,7 @@ public class BluetoothSDPEngine implements SDPEngine{
     private ServerSocket serverSocket; // TODO: recherchieren, wie implementiere ich ein Socket in diesem Fall ???
     private BluetoothSDPEngine discoverService;
     private ASAPConnectionHandler asapConnectionHandler1;
-    private CharSequence[] formats;
+    private CharSequence[] formats; // TODO: Formats anwenden
 
     public BluetoothSDPEngine(BluetoothSDPEngine bluetoothSDPEngine, Object asapConnectionHandler, Context ctx, ASAPConnectionHandler asapConnectionHandler1) {
         this.ctx = ctx;
@@ -64,9 +64,8 @@ public class BluetoothSDPEngine implements SDPEngine{
         this.asapConnectionHandler = asapConnectionHandler;
     }
 
+    /*
     public void onClick() {
-        // TODO: GUI ???
-        /*
         boolean check = true;
         do {
             choose = console.readInteger("AdHapp");
@@ -75,8 +74,8 @@ public class BluetoothSDPEngine implements SDPEngine{
                 case 2 -> showListMenu(console).execute();
                 default -> System.out.println("No button were chosen");
             }
-        } while (check); */
-    }
+        } while (check);
+    } */
 
     public void initializeServerSocket() throws IOException {
         serverSocket = new ServerSocket(0);
