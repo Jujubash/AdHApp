@@ -197,7 +197,7 @@ public class BluetoothSDPEngine implements SDPEngine{
     }
 
     public void onPause() {
-        this.tearDown();
+        this.tearDown(); // TODO: don't destroy service onPause()
     }
 
     public void onResume() {
