@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.app.adhapp.NSD.BluetoothSDPEngine;
+import com.app.adhapp.NSD.Connection;
 
 public class SessionStarter extends AppCompatActivity {
     private BluetoothSDPEngine bluetoothSDPEngine;
@@ -41,6 +42,7 @@ public class SessionStarter extends AppCompatActivity {
         Log.d(TAG, "onPause() mode ");
         if (bluetoothSDPEngine != null) {
             this.bluetoothSDPEngine.onPause();
+            this.bluetoothSDPEngine.registerService(Connection.getLocalPort());
         }
     }
 
