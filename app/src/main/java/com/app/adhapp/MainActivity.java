@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity implements SDPEngine {
     private NsdManager.DiscoveryListener discoveryListener;
     private BluetoothSDPEngine discoverService;
     private BluetoothSDPEngine bluetoothSDPEngine;
-    private String format_string; // TODO: Das wird zu das void offer(CharSequence[] formats); in der Interface SDPEngine.java
+    private String format_string; // TODO: IST void offer(CharSequence[] formats)
     private static final String TAG = "AdHApp Activity ";
 
     private Button button_start, button_search, button_search_format, button_start_format;
@@ -110,6 +110,7 @@ public class MainActivity extends AppCompatActivity implements SDPEngine {
         super.onDestroy();
         Log.d(TAG, "onDestroy() mode ");
         this.bluetoothSDPEngine.onDestroy();
+        super.onDestroy();
     }
 
     public void tearDown() {

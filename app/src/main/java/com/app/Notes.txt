@@ -11,6 +11,10 @@ früher hatte Herr S. darüber geredet das hier zu implementieren:
 inzwischen sind die Buttons auf die MainActivity verlagert, trotzdem das im Hinterkopf behalten.
 ____________________________________________________________________________________________________________________________
 
+soll das bei Lifecycle der Activities geschehen? :
+TODO: this.bluetoothSDPEngine.registerService(Connection.getLocalPort()); ???
+____________________________________________________________________________________________________________________________
+
 PUT NOTES HERE...
 ____________________________________________________________________________________________________________________________
 __________________________________________________ SDPEngine.java __________________________________________________________

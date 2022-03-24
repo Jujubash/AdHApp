@@ -1,12 +1,11 @@
 package com.app.adhapp;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.app.adhapp.NSD.BluetoothSDPEngine;
 
-public class SessionSearcher extends AppCompatActivity {
+public class SessionSearcher extends MainActivity {
     private BluetoothSDPEngine bluetoothSDPEngine;
     private static final String TAG = "Session Searcher ";
 
@@ -17,7 +16,6 @@ public class SessionSearcher extends AppCompatActivity {
         Log.d(TAG, "onCreate() mode ");
     }
 
-    // CHANGE CYCLE:
     @Override
     protected void onStart() {
         super.onStart();
@@ -38,8 +36,9 @@ public class SessionSearcher extends AppCompatActivity {
         super.onPause();
         Log.d(TAG, "onPause() mode ");
         if (bluetoothSDPEngine != null) {
-            this.bluetoothSDPEngine.onPause();
+            this.bluetoothSDPEngine.tearDown();
         }
+        super.onPause();
     }
 
     @Override
@@ -53,6 +52,7 @@ public class SessionSearcher extends AppCompatActivity {
         super.onDestroy();
         Log.d(TAG, "onDestroy() mode ");
         this.bluetoothSDPEngine.onDestroy();
+        super.onDestroy();
     }
 
     // NsdHelper's tearDown method

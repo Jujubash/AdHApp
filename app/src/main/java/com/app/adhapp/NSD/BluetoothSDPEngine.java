@@ -88,7 +88,7 @@ public class BluetoothSDPEngine implements SDPEngine{
             @Override
             public void onServiceRegistered(NsdServiceInfo NsdServiceInfo) {
                 serviceName = NsdServiceInfo.getServiceName();
-                Log.d(TAG, "Service registered: " + serviceName); // TODO: change all mService for serviceName aka formats ???
+                Log.d(TAG, "Service registered: " + serviceName); // serviceName same as mService
             }
 
             @Override

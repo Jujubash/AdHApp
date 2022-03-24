@@ -1,14 +1,11 @@
 package com.app.adhapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.util.Log;
 
 import com.app.adhapp.NSD.BluetoothSDPEngine;
-import com.app.adhapp.NSD.Connection;
 
-public class SessionStarter extends AppCompatActivity {
+public class SessionStarter extends MainActivity {
     private BluetoothSDPEngine bluetoothSDPEngine;
     private static final String TAG = "Session Starter ";
 
@@ -18,8 +15,6 @@ public class SessionStarter extends AppCompatActivity {
         setContentView(R.layout.activity_session_starter);
         Log.d(TAG, "onCreate() mode ");
     }
-
-    // CHANGE CYCLE:
 
     @Override
     protected void onStart() {
@@ -41,9 +36,9 @@ public class SessionStarter extends AppCompatActivity {
         super.onPause();
         Log.d(TAG, "onPause() mode ");
         if (bluetoothSDPEngine != null) {
-            this.bluetoothSDPEngine.onPause();
-            this.bluetoothSDPEngine.registerService(Connection.getLocalPort());
+            this.bluetoothSDPEngine.tearDown();
         }
+        super.onPause();
     }
 
     @Override
@@ -57,6 +52,7 @@ public class SessionStarter extends AppCompatActivity {
         super.onDestroy();
         Log.d(TAG, "onDestroy() mode ");
         this.bluetoothSDPEngine.onDestroy();
+        super.onDestroy();
     }
 
     // NsdHelper's tearDown method
