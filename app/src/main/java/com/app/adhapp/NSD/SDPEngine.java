@@ -6,7 +6,7 @@ public interface SDPEngine {
      Sie werden ggf. konvertiert.
      Diese Format werde aber als Servicebeschreibung genutzt.
      Wenn das nicht geht, lassen Sie uns darüber diskutieren.
-     Nach dem Aufruf aber, bietet sich die Komponente anderen als Service an
+     Nach dem Aufruf aber, bietet sich kdie Komponente anderen als Service an
      und erlaubt einen Verbindungsaufbau
      */
     void offer(CharSequence[] formats); // TODO: komplett löschen ???
