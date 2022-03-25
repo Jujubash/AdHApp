@@ -36,52 +36,56 @@ public class BluetoothSDPEngine implements SDPEngine{
         this.asapConnectionHandler = asapConnectionHandler1;
     }
 
-    // TODO: create constructor for BluetoothSDPEngine();
-
     public void registerService(int port) {
         tearDown();
         initializeRegistrationListener();
-        //--------------------------- Teil 1/2: von registerService(); ---------------------------//
+
+        /////////////////////////////////////////////////////////////////////////////////////
+        //                               Register Service                                  //
+        /////////////////////////////////////////////////////////////////////////////////////
+
+        /**
+         * Teil 1/2 von registerService:
+         * register your service on the local network, creating a NsdServiceInfo object.
+         * This object provides the information that other devices on the network use when
+         * they're deciding whether to connect to your service.
+         */
         NsdServiceInfo serviceInfo = new NsdServiceInfo();
         serviceInfo.setPort(port);
-        serviceInfo.setServiceName(serviceName); // String von Interface @SuppressLint
-        serviceInfo.setServiceType(REGISTRATION_TYPE);
+        serviceInfo.setServiceName(serviceName);   // TODO: Formats anwenden
+        serviceInfo.setServiceType(SERVICE_TYPE);  // TODO: zwischen TCP UDP entscheiden lassen
         nsdManager = (NsdManager) this.ctx.getSystemService(Context.NSD_SERVICE);
-        nsdManager.registerService(
-                serviceInfo, NsdManager.PROTOCOL_DNS_SD, registrationListener);
-
-        //--------------------------- Teil 2/2: von registerService(); ---------------------------//
-        serviceInfo = new NsdServiceInfo();
-        serviceInfo.setPort(port);
-        serviceInfo.setServiceName(serviceName);
-        serviceInfo.setServiceType(SERVICE_TYPE);
+        nsdManager.registerService(serviceInfo, NsdManager.PROTOCOL_DNS_SD, registrationListener);
     }
 
-    // BluetoothSDPEngine Constructor
+    /////////////////////////////////////////////////////////////////////////////////////
+    //                           BluetoothSDPEngine Constructor                        //
+    /////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     *
+     *
+     */
     public BluetoothSDPEngine(Context ctx, ASAPConnectionHandler asapConnectionHandler) {
         initializeResolveListener();
         this.ctx = ctx;
         this.asapConnectionHandler = asapConnectionHandler;
     }
 
-    /*
-    public void onClick() {
-        boolean check = true;
-        do {
-            choose = console.readInteger("AdHapp");
-            switch (choose) {
-                case 1 -> showListMenu(console).execute();
-                case 2 -> showListMenu(console).execute();
-                default -> System.out.println("No button were chosen");
-            }
-        } while (check);
-    } */
-
+    /**
+     * setting the port for the service:
+     * avoid conflicts by setting the port to 0
+     * to initialize a socket to any available port.
+     */
     public void initializeServerSocket() throws IOException {
         serverSocket = new ServerSocket(0);
         localPort = serverSocket.getLocalPort();
     }
 
+    /**
+     *
+     *
+     */
     public void initializeRegistrationListener() { // TODO: onStart();
         registrationListener = new NsdManager.RegistrationListener() {
 
@@ -111,6 +115,10 @@ public class BluetoothSDPEngine implements SDPEngine{
         };
     }
 
+    /**
+     *
+     *
+     */
     public BluetoothSDPEngine discoverServices() {
         stopDiscovery(formats); // TODO: richtig so???
         initializeDiscoveryListener();
@@ -119,6 +127,17 @@ public class BluetoothSDPEngine implements SDPEngine{
         return null; // TODO: return results
     }
 
+    /**
+     * Service discovery has two steps:
+     * 1. Setting up a discovery listener with the relevant callbacks
+     * 2. Making a single asynchronous API call to discoverServices()
+     *
+     * What the snippet in the IF Statement does:
+     * 1. The service name of the found service is compared to the service name of the local service
+     *    to determine if the device just picked up its own broadcast (which is valid).
+     * 2. Service type is checked, to verify it's a type of service your application can connect to.
+     * 3. The service name is checked to verify connection to the correct application.
+     */
     public void initializeDiscoveryListener() {
         discoveryListener = new NsdManager.DiscoveryListener() {
 
@@ -167,6 +186,10 @@ public class BluetoothSDPEngine implements SDPEngine{
         };
     }
 
+    /**
+     *
+     *
+     */
         public void initializeResolveListener() {
         resolveListener = new NsdManager.ResolveListener() {
 
@@ -191,13 +214,21 @@ public class BluetoothSDPEngine implements SDPEngine{
         };
     }
 
+    /**
+     * Activities calling methods from Lifecycles:
+     * 1. MainActivity: menu for users
+     * 2. SessionStarter: user can create session
+     * 3. SessionSearcher: user searches for existing session
+     */
     public void onCreate() {
         new BluetoothSDPEngine(this, null, ctx, asapConnectionHandler1);
         discoverService = this.discoverServices();
+        initializeRegistrationListener();
+        initializeResolveListener();
     }
 
     public void onPause() {
-        this.tearDown(); // TODO: don't destroy service onPause()
+        this.tearDown();
     }
 
     public void onResume() {
@@ -215,18 +246,30 @@ public class BluetoothSDPEngine implements SDPEngine{
         nsdManager.stopServiceDiscovery(discoveryListener);
     }
 
+    /**
+     *
+     *
+     */
     @Override
     public void offer(CharSequence[] formats) {
 
     }
 
+    /**
+     *
+     *
+     */
     /*
     @Override
     public void discover(CharSequence[] formats) {
         nsdManager.discoverServices( this, null);
     }
-     */ // TODO: Change this mess
+     */ // TODO: fix this
 
+    /**
+     *
+     *
+     */
     @Override
     public void stopDiscovery(CharSequence[] formats) {
         if (discoveryListener != null) {
@@ -238,6 +281,10 @@ public class BluetoothSDPEngine implements SDPEngine{
         }
     }
 
+    /**
+     *
+     *
+     */
     @Override
     public void getChosenServiceInfo(CharSequence[] formats) {
         // return serviceName; // TODO: return Service (Beschreibung)

@@ -19,16 +19,15 @@ public class MainActivity extends AppCompatActivity implements SDPEngine {
     private NsdManager nsdManager;
     private NsdManager.RegistrationListener registrationListener;
     private NsdManager.DiscoveryListener discoveryListener;
-    private BluetoothSDPEngine discoverService;
     private BluetoothSDPEngine bluetoothSDPEngine;
     private String format_string; // TODO: IST void offer(CharSequence[] formats)
     private static final String TAG = "AdHApp Activity ";
+    /** user interface related buttons and text input */
+    private Button button_start, button_search;
 
-    private Button button_start, button_search, button_search_format, button_start_format;
-    private EditText edit_format;       // TODO: Search and Start Activity Inputs
-    private TextView textview_format;   // TODO: Search and Start Activity Inputs
-
-    //---------------------------------- APPLICATION'S ACTIVITY ----------------------------------//
+    /////////////////////////////////////////////////////////////////////////////////////
+    //                             Lifecycle from MainActicity                         //
+    /////////////////////////////////////////////////////////////////////////////////////
     RelativeLayout layout;     // TODO: Teil 2/4: Discover services on the network ??? nsdHelper.discoverServices()
 
     @Override
@@ -36,13 +35,7 @@ public class MainActivity extends AppCompatActivity implements SDPEngine {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.d(TAG, "onCreate() mode ");
-        this.bluetoothSDPEngine = new BluetoothSDPEngine(this, null); // TODO: call constructor from BluetoothSDPEngine();
-        this.bluetoothSDPEngine.onCreate();
-        nsdManager = (NsdManager) this.getSystemService(Context.NSD_SERVICE);
-        this.discoverService = new BluetoothSDPEngine(this, null);
-        this.discoverService.onCreate();
-
-        //-------------------------------- BUTTONS ALL ACTIVITIES --------------------------------//
+        /** buttons MainActivity menu */
         button_start = (Button) findViewById(R.id.button_start);
         button_start.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,26 +43,26 @@ public class MainActivity extends AppCompatActivity implements SDPEngine {
                 openSessionStarter();
             }
         });
-
         button_search = (Button) findViewById(R.id.button_search);
         button_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openSessionSearcher();
-                edit_format = (EditText)findViewById(R.id.edit_format);
-                textview_format = (TextView)findViewById(R.id.textview_format);
-                format_string = edit_format.getText().toString();
-                textview_format.setText("Session chosen: "+ format_string);
             }
         });
     }
 
-    //------------------------------------ START LIFE CYCLE --------------------------------------//
+    /**
+     * redirecting user to the SessionStarter Activity
+     */
     public void openSessionStarter() {
         Intent intent_start = new Intent(this, SessionStarter.class);
         startActivity(intent_start);
     }
 
+    /**
+     * redirecting user to the SessionSearcher Activity
+     */
     public void openSessionSearcher() {
         Intent intent_search = new Intent(this, SessionSearcher.class);
         startActivity(intent_search);
@@ -85,18 +78,13 @@ public class MainActivity extends AppCompatActivity implements SDPEngine {
     protected void onResume() {
         super.onResume();
         Log.d(TAG, "onResume() mode ");
-        if (bluetoothSDPEngine != null) {
-            this.bluetoothSDPEngine.onResume();
-        }
+        // TODO: if (session != 0) goto Session Activity
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         Log.d(TAG, "onPause() mode ");
-        if (bluetoothSDPEngine != null) {
-            this.bluetoothSDPEngine.onPause();
-        }
     }
 
     @Override
@@ -115,7 +103,8 @@ public class MainActivity extends AppCompatActivity implements SDPEngine {
 
     public void tearDown() {
         Log.d(TAG, "tearDown() mode ");
-        this.bluetoothSDPEngine.tearDown();     // NsdHelper's tearDown method
+        // NsdHelper's tearDown method:
+        this.bluetoothSDPEngine.tearDown();
     }
 
     // TODO: implement Interface methods
