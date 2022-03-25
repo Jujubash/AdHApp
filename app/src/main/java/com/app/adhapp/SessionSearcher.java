@@ -4,7 +4,6 @@ import android.content.Context;
 import android.net.nsd.NsdManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -13,7 +12,6 @@ import com.app.adhapp.NSD.BluetoothSDPEngine;
 
 public class SessionSearcher extends MainActivity {
     private String format_string;
-    private BluetoothSDPEngine bluetoothSDPEngine;
     private BluetoothSDPEngine discoverService;
     private NsdManager nsdManager;
     private static final String TAG = "Session Searcher ";
@@ -65,8 +63,8 @@ public class SessionSearcher extends MainActivity {
     protected void onResume() {
         super.onResume();
         Log.d(TAG, "onResume() mode ");
-        if (bluetoothSDPEngine != null) {
-            this.bluetoothSDPEngine.onResume();
+        if (discoverService != null) {
+            this.discoverService.onResume();
         }
     }
 
@@ -74,8 +72,8 @@ public class SessionSearcher extends MainActivity {
     protected void onPause() {
         super.onPause();
         Log.d(TAG, "onPause() mode ");
-        if (bluetoothSDPEngine != null) {
-            this.bluetoothSDPEngine.tearDown();
+        if (discoverService != null) {
+            this.discoverService.tearDown();
         }
         super.onPause();
     }
@@ -90,13 +88,13 @@ public class SessionSearcher extends MainActivity {
     protected void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "onDestroy() mode ");
-        this.bluetoothSDPEngine.onDestroy();
+        this.discoverService.onDestroy();
         super.onDestroy();
     }
 
     // NsdHelper's tearDown method
     public void tearDown() {
         Log.d(TAG, "tearDown() mode ");
-        this.bluetoothSDPEngine.tearDown();
+        this.discoverService.tearDown();
     }
 }

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.net.nsd.NsdManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -14,7 +13,6 @@ import com.app.adhapp.NSD.BluetoothSDPEngine;
 public class SessionStarter extends MainActivity {
     private String format_string;
     private BluetoothSDPEngine bluetoothSDPEngine;
-    private BluetoothSDPEngine discoverService;
     private NsdManager nsdManager;
     private static final String TAG = "Session Starter ";
     /** user interface related buttons and text input */
