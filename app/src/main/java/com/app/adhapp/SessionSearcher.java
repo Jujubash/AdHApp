@@ -9,8 +9,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.app.adhapp.NSD.BluetoothSDPEngine;
+import com.app.adhapp.NSD.SDPEngine;
 
-public class SessionSearcher extends MainActivity {
+public class SessionSearcher extends MainActivity implements SDPEngine {
     private String format_string;
     private BluetoothSDPEngine discoverService;
     private NsdManager nsdManager;

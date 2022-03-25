@@ -14,7 +14,7 @@ import android.widget.RelativeLayout;
 import com.app.adhapp.NSD.BluetoothSDPEngine;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity implements SDPEngine {
+public class MainActivity extends AppCompatActivity implements SDPEngine{
     /** setting ID to Starter Activity to it distinguish from other Activities */
     private int activity_id = 1;
     private static final String TAG = "AdHApp Activity ";
@@ -99,8 +99,6 @@ public class MainActivity extends AppCompatActivity implements SDPEngine {
     public void tearDown() {
         Log.d(TAG, "tearDown() mode ");
     }
-
-    // TODO: implement Interface methods
 
     @Override
     public void offer(CharSequence[] formats) {
