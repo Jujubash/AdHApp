@@ -15,12 +15,8 @@ import com.app.adhapp.NSD.BluetoothSDPEngine;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity implements SDPEngine {
-    private SDPEngine sdpEngine;
-    private NsdManager nsdManager;
-    private NsdManager.RegistrationListener registrationListener;
-    private NsdManager.DiscoveryListener discoveryListener;
-    private BluetoothSDPEngine bluetoothSDPEngine;
-    private String format_string; // TODO: IST void offer(CharSequence[] formats)
+    /** setting ID to Starter Activity to it distinguish from other Activities */
+    private int activity_id = 1;
     private static final String TAG = "AdHApp Activity ";
     /** user interface related buttons and text input */
     private Button button_start, button_search;
@@ -97,14 +93,11 @@ public class MainActivity extends AppCompatActivity implements SDPEngine {
     protected void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "onDestroy() mode ");
-        this.bluetoothSDPEngine.onDestroy();
         super.onDestroy();
     }
 
     public void tearDown() {
         Log.d(TAG, "tearDown() mode ");
-        // NsdHelper's tearDown method:
-        this.bluetoothSDPEngine.tearDown();
     }
 
     // TODO: implement Interface methods

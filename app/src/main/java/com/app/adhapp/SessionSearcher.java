@@ -14,6 +14,8 @@ public class SessionSearcher extends MainActivity {
     private String format_string;
     private BluetoothSDPEngine discoverService;
     private NsdManager nsdManager;
+    /** setting ID to Starter Activity to it distinguish from other Activities */
+    private int activity_id = 2;
     private static final String TAG = "Session Searcher ";
     /** user interface related buttons and text input */
     private Button button_search_format;
@@ -64,7 +66,7 @@ public class SessionSearcher extends MainActivity {
         super.onResume();
         Log.d(TAG, "onResume() mode ");
         if (discoverService != null) {
-            this.discoverService.onResume();
+            this.discoverService.onResume(activity_id);
         }
     }
 
@@ -73,7 +75,7 @@ public class SessionSearcher extends MainActivity {
         super.onPause();
         Log.d(TAG, "onPause() mode ");
         if (discoverService != null) {
-            this.discoverService.tearDown();
+            this.discoverService.tearDown(activity_id);
         }
         super.onPause();
     }
@@ -95,6 +97,7 @@ public class SessionSearcher extends MainActivity {
     // NsdHelper's tearDown method
     public void tearDown() {
         Log.d(TAG, "tearDown() mode ");
-        this.discoverService.tearDown();
+        // NsdHelper's tearDown method:
+        this.discoverService.tearDown(activity_id);
     }
 }

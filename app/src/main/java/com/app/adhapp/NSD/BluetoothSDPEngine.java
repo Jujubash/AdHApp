@@ -4,7 +4,6 @@ import android.content.Context;
 import android.net.nsd.NsdManager;
 import android.net.nsd.NsdServiceInfo;
 import android.util.Log;
-import android.widget.Button;
 
 import net.sharksystem.asap.ASAPConnectionHandler;
 
@@ -15,6 +14,8 @@ import java.net.ServerSocket;
 public class BluetoothSDPEngine implements SDPEngine{
     private static final String SERVICE_TYPE = "_http._tcp.";
     private static final String REGISTRATION_TYPE = "_nsdchat._tcp";
+    /** setting ID to Starter Activity to it distinguish from other Activities */
+    private int activity_id;
     private static final String TAG = "NSDHelper";
     private static NsdManager.DiscoveryListener discoveryListener;
     private final ASAPConnectionHandler asapConnectionHandler;
@@ -37,7 +38,7 @@ public class BluetoothSDPEngine implements SDPEngine{
     }
 
     public void registerService(int port) {
-        tearDown();
+        tearDown(activity_id);
         initializeRegistrationListener();
 
         /////////////////////////////////////////////////////////////////////////////////////
@@ -228,22 +229,38 @@ public class BluetoothSDPEngine implements SDPEngine{
     }
 
     public void onPause() {
-        this.tearDown();
+        this.tearDown(activity_id);
     }
 
-    public void onResume() {
-        this.registerService(Connection.getLocalPort());
-        this.discoverServices();
+    public void onResume(int activity_id) {
+        if (activity_id == 1) {
+            this.registerService(Connection.getLocalPort());
+        }
+        else if (activity_id == 2) {
+            this.discoverServices();
+        }
+        else
+            Log.e(TAG, "Activity ID doesn't exist ");
     }
 
     public void onDestroy() {
-        this.tearDown();
+        this.tearDown(activity_id);
         Connection.tearDown();
     }
 
-    public void tearDown() {
-        nsdManager.unregisterService(registrationListener);
-        nsdManager.stopServiceDiscovery(discoveryListener);
+    public void tearDown(int activity_id) {
+        if (activity_id == 1) {
+            nsdManager.unregisterService(registrationListener);
+        }
+        else if (activity_id == 2) {
+            nsdManager.stopServiceDiscovery(discoveryListener);
+        }
+        else if (activity_id == 0) {
+            nsdManager.unregisterService(registrationListener);
+            nsdManager.stopServiceDiscovery(discoveryListener);
+        }
+        else
+            Log.e(TAG, "Activity ID doesn't exist ");
     }
 
     /**

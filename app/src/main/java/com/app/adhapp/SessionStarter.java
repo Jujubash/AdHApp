@@ -14,6 +14,8 @@ public class SessionStarter extends MainActivity {
     private String format_string;
     private BluetoothSDPEngine bluetoothSDPEngine;
     private NsdManager nsdManager;
+    /** setting ID to Starter Activity to it distinguish from other Activities */
+    private int activity_id = 1;
     private static final String TAG = "Session Starter ";
     /** user interface related buttons and text input */
     private Button button_start_format;
@@ -63,7 +65,7 @@ public class SessionStarter extends MainActivity {
         super.onResume();
         Log.d(TAG, "onResume() mode ");
         if (bluetoothSDPEngine != null) {
-            this.bluetoothSDPEngine.onResume();
+            this.bluetoothSDPEngine.onResume(activity_id);
         }
     }
 
@@ -72,7 +74,7 @@ public class SessionStarter extends MainActivity {
         super.onPause();
         Log.d(TAG, "onPause() mode ");
         if (bluetoothSDPEngine != null) {
-            this.bluetoothSDPEngine.tearDown();
+            this.bluetoothSDPEngine.tearDown(activity_id);
         }
         super.onPause();
     }
@@ -94,6 +96,7 @@ public class SessionStarter extends MainActivity {
     // NsdHelper's tearDown method
     public void tearDown() {
         Log.d(TAG, "tearDown() mode ");
-        this.bluetoothSDPEngine.tearDown();
+        // NsdHelper's tearDown method:
+        this.bluetoothSDPEngine.tearDown(activity_id);
     }
 }
