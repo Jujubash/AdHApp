@@ -19,8 +19,8 @@ public class SessionSearcher extends MainActivity {
     private static final String TAG = "Session Searcher ";
     /** user interface related buttons and text input */
     private Button button_search_format;
-    private EditText edit_format;       // Search and Start Activity Inputs
-    private TextView textview_format;   // Search and Start Activity Inputs
+    private EditText edit_format;
+    private TextView textview_format;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
