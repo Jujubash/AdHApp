@@ -12,10 +12,10 @@ import android.widget.TextView;
 import com.app.adhapp.NSD.BluetoothSDPEngine;
 
 public class SessionSearcher extends MainActivity {
+    private String format_string;
     private BluetoothSDPEngine bluetoothSDPEngine;
     private BluetoothSDPEngine discoverService;
     private NsdManager nsdManager;
-    private String format_string;       // format_string is void offer(CharSequence[] formats)
     private static final String TAG = "Session Searcher ";
     /** user interface related buttons and text input */
     private Button button_search_format;
