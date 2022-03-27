@@ -2,20 +2,19 @@ package com.app.adhapp.NSD;
 
 public interface SDPEngine {
     /**
-     Die Komponente benutzt die Formate.
-     Sie werden ggf. konvertiert.
-     Diese Format werde aber als Servicebeschreibung genutzt.
-     Wenn das nicht geht, lassen Sie uns darüber diskutieren.
-     Nach dem Aufruf aber, bietet sich kdie Komponente anderen als Service an
-     und erlaubt einen Verbindungsaufbau
+     Die Komponente benutzt die Formate und werden ggf. konvertiert.
+     Der Format wird als Servicebeschreibung genutzt.
+     Nach dem Aufruf aber, bietet sich die Komponente anderen als Service an
+     sowie erlaubt einen Verbindungsaufbau
      */
-    void offer(CharSequence[] formats); // TODO: komplett löschen ???
+    CharSequence formats = "AAAAAAAAAAAAA";
+
+    void offer(CharSequence[] formats);
 
     /** Die Komponenten sucht nun nach passenden Services.
      * Sie baut eine Verbindung auf.
-     * Ist eine neue Verbindung entstanden, rufen Sie
-     asapConnectionHandler.handleConnection(inputStream, outputStream) auf.
-     In einer kleinere Demoimplementierung zeigen Sie, dass das funktioniert.
+     * Ist eine neue Verbindung entstanden, wird
+     * asapConnectionHandler.handleConnection(inputStream, outputStream) gerufen.
      */
 
     /*
@@ -25,5 +24,5 @@ public interface SDPEngine {
      */
     void stopDiscovery(CharSequence[] formats); // discovery stoppen // TODO: implementieren
 
-    void getChosenServiceInfo(CharSequence[] formats); // TODO: Button, um Beschreibung vom Service String zu sehen
+    void getChosenServiceInfo(CharSequence[] formats);
 }
