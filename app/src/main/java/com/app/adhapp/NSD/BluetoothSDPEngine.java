@@ -248,24 +248,10 @@ public class BluetoothSDPEngine implements SDPEngine{
         Connection.tearDown();
     }
 
-    public void tearDown(int activity_id) {
-        if (activity_id == 1) {
-            nsdManager.unregisterService(registrationListener);
-        }
-        else if (activity_id == 2) {
-            nsdManager.stopServiceDiscovery(discoveryListener);
-        }
-        else if (activity_id == 0) {
-            nsdManager.unregisterService(registrationListener);
-            nsdManager.stopServiceDiscovery(discoveryListener);
-        }
-        else
-            Log.e(TAG, "Activity ID doesn't exist ");
-    }
-
     /**
-     *
-     *
+     * This is the Session Starter Method:
+     * Here a user can create a session
+     * and starts offering it directly.
      */
     @Override
     public void offer(CharSequence[] formats) {
@@ -273,19 +259,19 @@ public class BluetoothSDPEngine implements SDPEngine{
     }
 
     /**
-     *
-     *
+     * This is the Discovery Method
+     * Bevor es verbunden wird: Beschreibung vom Service:
+     * wenn gleiche Formate unterstützen dann auf Discovery.
      */
-    /*
     @Override
     public void discover(CharSequence[] formats) {
         nsdManager.discoverServices( this, null);
     }
-     */ // TODO: fix this
 
     /**
-     *
-     *
+     * This is the Stop Discoverable Method:
+     * After method call, the Session Starter
+     * stops showing the connection.
      */
     @Override
     public void stopDiscovery(CharSequence[] formats) {
@@ -299,11 +285,45 @@ public class BluetoothSDPEngine implements SDPEngine{
     }
 
     /**
-     *
-     *
+     * Connection Infos:
+     * Method informs about the session
+     * being offered or already connected.
      */
     @Override
     public void getChosenServiceInfo(CharSequence[] formats) {
-        // return serviceName; // TODO: return Service (Beschreibung)
+        try {
+            initializeServerSocket();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        /*registerService(0);
+        if (serviceInfo != null) {
+            System.out.println("This is your service Info: " + serviceInfo);
+        }*/
+        System.out.println("Your protocol type is: " + SERVICE_TYPE);
+        System.out.println("Your service is: " + serviceName);
+    }
+
+    /**
+     * This is the Tear Down method:
+     * Method terminates existing session
+     * being offered or not for other devices.
+     */
+    @Override
+    public void tearDown(CharSequence[] formats) {
+        public void tearDown(int activity_id) {
+            if (activity_id == 1) {
+                nsdManager.unregisterService(registrationListener);
+            }
+            else if (activity_id == 2) {
+                nsdManager.stopServiceDiscovery(discoveryListener);
+            }
+            else if (activity_id == 0) {
+                nsdManager.unregisterService(registrationListener);
+                nsdManager.stopServiceDiscovery(discoveryListener);
+            }
+            else
+                Log.e(TAG, "Activity ID doesn't exist ");
+        }
     }
 }
